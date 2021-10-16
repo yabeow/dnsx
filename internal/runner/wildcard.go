@@ -16,7 +16,10 @@ func (r *Runner) IsWildcard(host string) bool {
 		return false
 	}
 	for _, A := range in.A {
-		orig[A] = struct{}{}
+		A = strings.TrimSpace(A)
+		if A != "" {
+			orig[A] = struct{}{}
+		}
 	}
 
 	subdomainPart := strings.TrimSuffix(host, "."+r.options.WildcardDomain)
@@ -54,8 +57,11 @@ func (r *Runner) IsWildcard(host string) bool {
 
 		// Get all the records and add them to the wildcard map
 		for _, A := range listip {
-			if _, ok := wildcards[A]; !ok {
-				wildcards[A] = struct{}{}
+			A = strings.TrimSpace(A)
+			if A != "" {
+				if _, ok := wildcards[A]; !ok {
+					wildcards[A] = struct{}{}
+				}
 			}
 		}
 	}
