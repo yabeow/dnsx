@@ -464,7 +464,7 @@ func (r *Runner) worker() {
 		if r.options.WildcardDomain != "" {
 			// nolint:errcheck
 			r.storeDNSData(dnsData)
-			continue
+			// continue
 		}
 		if r.options.JSON {
 			jsons, _ := dnsData.JSON()
