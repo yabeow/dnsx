@@ -44,6 +44,7 @@ func New(options *Options) (*Runner, error) {
 	dnsxOptions := dnsx.DefaultOptions
 	dnsxOptions.MaxRetries = options.Retries
 	dnsxOptions.TraceMaxRecursion = options.TraceMaxRecursion
+	dnsxOptions.Timeout = time.Duration(options.Timeout) * time.Second
 
 	if options.Resolvers != "" {
 		dnsxOptions.BaseResolvers = []string{}
@@ -90,7 +91,7 @@ func New(options *Options) (*Runner, error) {
 		questionTypes = append(questionTypes, dns.TypeNS)
 	}
 	// If no option is specified or wildcard filter has been requested use query type A
-	if len(questionTypes) == 0 || options.WildcardDomain != "" {
+	if len(questionTypes) == 0 || (options.WildcardDomain != "" && !options.A) {
 		options.A = true
 		questionTypes = append(questionTypes, dns.TypeA)
 	}

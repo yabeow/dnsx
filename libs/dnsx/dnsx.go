@@ -4,6 +4,7 @@ import (
 	"errors"
 	"math"
 	"net"
+	"time"
 
 	miekgdns "github.com/miekg/dns"
 	retryabledns "github.com/projectdiscovery/retryabledns"
@@ -19,6 +20,7 @@ type DNSX struct {
 type Options struct {
 	BaseResolvers     []string
 	MaxRetries        int
+	Timeout           time.Duration
 	QuestionTypes     []uint16
 	Trace             bool
 	TraceMaxRecursion int
@@ -42,8 +44,12 @@ var DefaultResolvers = []string{
 
 // New creates a dns resolver
 func New(options Options) (*DNSX, error) {
-	dnsClient := retryabledns.New(options.BaseResolvers, options.MaxRetries)
-
+	dnsClient := retryabledns.NewWithOptions(
+		retryabledns.Options{
+			BaseResolvers: options.BaseResolvers,
+			MaxRetries:    options.MaxRetries,
+			Timeout:       options.Timeout,
+		})
 	return &DNSX{dnsClient: dnsClient, Options: &options}, nil
 }
 

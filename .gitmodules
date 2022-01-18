@@ -1,0 +1,3 @@
+[submodule "libs/retryabledns"]
+	path = libs/retryabledns
+	url = https://github.com/yabeow/retryabledns.git

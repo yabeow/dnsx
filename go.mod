@@ -2,13 +2,15 @@ module github.com/projectdiscovery/dnsx
 
 go 1.16
 
+replace github.com/projectdiscovery/retryabledns v1.0.13-0.20210916165024-76c5b76fd59a => ./libs/retryabledns
+
 require (
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/logrusorgru/aurora v2.0.3+incompatible
 	github.com/miekg/dns v1.1.43
 	github.com/onsi/gomega v1.16.0 // indirect
 	github.com/projectdiscovery/clistats v0.0.8
-	github.com/projectdiscovery/fileutil v0.0.0-20210804142714-ebba15fa53ca
+	github.com/projectdiscovery/fileutil v0.0.0-20210926202739-6050d0acf73c
 	github.com/projectdiscovery/goconfig v0.0.0-20210804090219-f893ccd0c69c
 	github.com/projectdiscovery/gologger v1.1.4
 	github.com/projectdiscovery/hmap v0.0.1
